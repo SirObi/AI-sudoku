@@ -31,3 +31,10 @@ which_units = dict((box, [unit for unit in unitlist if box in unit]) for box in 
 
 # Create a dictionary for each box, containing all its peers, minus the box itself
 which_peers = dict((box, set(sum(which_units[box], [])) - set([box])) for box in boxes)
+
+# Implement function that will convert this string to a dictionary of values
+# for each corresponding box in the boxes list: '..3.2.6..9..3.5..1..18.64....81.29..7.......8..67.82....26.95..8..2.3..9..5.1.3..'
+def grid_values(string_repr):
+    return dict((box, string_repr[index]) for index, box in enumerate(boxes))
+# Since the above function provides the dict() with a list of tuples, you could
+# also simply do: return dict(zip(boxes, string_repr))
