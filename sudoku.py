@@ -34,7 +34,27 @@ which_peers = dict((box, set(sum(which_units[box], [])) - set([box])) for box in
 
 # Implement function that will convert this string to a dictionary of values
 # for each corresponding box in the boxes list: '..3.2.6..9..3.5..1..18.64....81.29..7.......8..67.82....26.95..8..2.3..9..5.1.3..'
+# Replace each '.' with '123456789'
 def grid_values(string_repr):
+    string_repr = list(string_repr)
+    for i in range(len(string_repr)):
+        if string_repr[i] == '.':
+            string_repr[i] = '123456789'
     return dict((box, string_repr[index]) for index, box in enumerate(boxes))
 # Since the above function provides the dict() with a list of tuples, you could
 # also simply do: return dict(zip(boxes, string_repr))
+
+grid_dict = grid_values('..3.2.6..9..3.5..1..18.64....81.29..7.......8..67.82....26.95..8..2.3..9..5.1.3..')
+
+# Implement function that iterates over boxes in puzzle that only have one value!! assigned to them
+# and remove this value from every one of its peers
+def eliminate(grid):
+    for box in grid:
+        if len(grid[box]) == 1:
+            peers = which_peers[box]
+            box_value = grid[box]
+            for peer in peers:
+                grid[peer] = grid[peer].replace(box_value, "")
+        else:
+            continue
+    return grid
