@@ -25,3 +25,9 @@ square_units = [cross(rs, cs) for rs in ('ABC','DEF','GHI') for cs in ('123','45
 
 
 unitlist = row_units + column_units + square_units
+
+# Create a dictionary for each box, containing all the units that it's part of
+which_units = dict((box, [unit for unit in unitlist if box in unit]) for box in boxes)
+
+# Create a dictionary for each box, containing all its peers, minus the box itself
+which_peers = dict((box, set(sum(which_units[box], [])) - set([box])) for box in boxes)
